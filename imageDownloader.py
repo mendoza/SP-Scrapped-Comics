@@ -7,14 +7,14 @@ COMIC_NAME = "COMIC_"
 
 print('Started downloading all images...')
 for i in range(6):
-    print(f'Downloading  comic\'s #%d images...' % i+1)
-    with open(f"Comic-%d.json" % i, 'r') as images:
+    print(f'Downloading  comic\'s #%s images...' % str(i))
+    with open(f"Comic-%s.json" % str(i), 'r') as images:
         images = json.load(images)
         for img in tqdm(images['images']):
-            fileName = f'%s/%s%d/%.2d.jpg' % (FOLDER_NAME,
-                                              COMIC_NAME, i+1, images['images'].index(img))
+            fileName = f'%s/%s%s/%.2d.jpg' % (FOLDER_NAME,
+                                              COMIC_NAME, str(i), images['images'].index(img))
             os.makedirs(os.path.dirname(fileName), exist_ok=True)
             with open(fileName, 'wb') as f:
                 f.write(requests.get(img).content)
-    print(f'Finished  downloading comic\'s #%d images!' % i+1)
+    print(f'Finished  downloading comic\'s #%s images!' % str(i))
 print('Finished  downloading all images!')
