@@ -15,9 +15,9 @@ class BlogSpider(scrapy.Spider):
 
     def parse(self, response):
         images_Dict = {"images": []}
-        images = response.css('a>img[border="0"]')
-        print(response.url)
-        with open(f"Comic-%s.json" % self.start_urls.index(response.url), 'w') as f:
+        images = response.css('#chapter-c>img')
+        print(f'response url: {response.url}')
+        with open(f"Comic-{self.start_urls.index(response.url)}.json", 'w') as f:
             for img in images:
                 images_Dict['images'].append(img.attrib["src"])
             f.write(json.dumps(images_Dict))
